@@ -25,6 +25,7 @@ export default function Page() {
     src: "/pet_scene.riv",
     stateMachines: mode === "light" ? "State Machine 1" : "State Machine 2",
     autoplay: true,
+    isTouchScrollEnabled: true,
   });
 
   const isNight = mode === "night";
