@@ -13,7 +13,9 @@ import {
   FaLinkedin,
   FaXTwitter,
   FaTiktok,
+  FaYoutube,
 } from "react-icons/fa6";
+import Link from "next/link";
 
 export default function Page() {
   const [mode, setMode] = useState("light");
@@ -28,7 +30,7 @@ export default function Page() {
     isTouchScrollEnabled: true,
   });
 
-  const isNight = mode === "night";
+  const isNight = mode === "light";
 
   const handleToggle = () => {
     const tl = gsap.timeline();
@@ -109,9 +111,7 @@ export default function Page() {
   return (
     <div
       className={`relative w-full flex items-center justify-center py-10 min-h-screen transition-colors duration-500 ${
-        isNight
-          ? "bg-gradient-to-b from-[#C2BAFF] to-[#F7F0FF]"
-          : "bg-[#4C596C]"
+        isNight ? "bg-linear-to-b from-[#C2BAFF] to-[#F7F0FF]" : "bg-[#4C596C]"
       }`}
     >
       {/* 🔥 TOP CENTER LOGO */}
@@ -130,7 +130,7 @@ export default function Page() {
       <div className="grid w-full max-w-6xl grid-cols-1 px-5 items-center md:grid-cols-2 md:-ml-28">
         {/* LEFT — Rive */}
         <div className="flex items-center justify-center">
-          <div key={mode} className="h-[420px] w-full max-w-[420px]">
+          <div key={mode} className="h-105 w-full max-w-105">
             <RiveComponent className="h-full w-full" />
           </div>
         </div>
@@ -218,21 +218,33 @@ export default function Page() {
           </p>
 
           <div className="mb-8 flex gap-3">
-            {[FaFacebook, FaInstagram, FaLinkedin, FaXTwitter, FaTiktok].map(
-              (Icon, i) => (
-                <div
-                  key={i}
-                  className={`flex h-9 w-9 min-[1920px]:h-12 min-[1920px]:w-12 cursor-pointer items-center justify-center rounded-full border transition hover:scale-110 ${
-                    isNight
-                      ? "border-[#5C3694] text-[#5C3694] hover:bg-purple-100"
-                      : "border-gray-500 text-white hover:bg-white/10"
-                  }`}
-                >
-                  <Icon size={16} className="min-[1920px]:hidden" />
-                  <Icon size={22} className="hidden min-[1920px]:block" />
-                </div>
-              ),
-            )}
+            {[
+              { Icon: FaFacebook, link: "https://www.facebook.com/tailswatch" },
+              {
+                Icon: FaInstagram,
+                link: "https://www.instagram.com/tailswatch",
+              },
+              {
+                Icon: FaLinkedin,
+                link: "https://www.linkedin.com/company/tailswatch/",
+              },
+              { Icon: FaYoutube, link: "https://www.youtube.com/tailswatch" },
+            ].map(({ Icon, link }, i) => (
+              <Link
+                key={i}
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex h-9 w-9 min-[1920px]:h-12 min-[1920px]:w-12 cursor-pointer items-center justify-center rounded-full border transition hover:scale-110 ${
+                  isNight
+                    ? "border-[#5C3694] text-[#5C3694] hover:bg-purple-100"
+                    : "border-gray-500 text-white hover:bg-white/10"
+                }`}
+              >
+                <Icon size={16} className="min-[1920px]:hidden" />
+                <Icon size={22} className="hidden min-[1920px]:block" />
+              </Link>
+            ))}
           </div>
 
           {/* Footer */}
